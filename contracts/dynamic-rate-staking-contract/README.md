@@ -58,4 +58,4 @@ where $X_{staked}$ - total staked amount by user, $X_{duration}$ - staking durat
 
 ### Tests
 
-Will be add soon
+Added to `test` folder.
