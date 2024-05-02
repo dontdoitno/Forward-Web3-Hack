@@ -8,7 +8,7 @@ https://docs.google.com/document/d/1op5qrDxVVvUaUlHNGmWHjSJXIuA1kl7EZGyCGnTT7t0/
 https://docs.google.com/document/d/1a2isPYo3SdKcWIv-rYu_XO3V2zKk-_gqbMeQzvr3WS0/edit
 
 ### File System of repository
-In folder `contracts` there is folder `dynamic-rate-staking-contract`. In the folder there is a file with the smart contract code and a folder `...-flattened`, where the flattened version of the code is located. The folder `artifacts` is created automatically during compilation. Lately I'll add a `README.md` file in each folder. 
+In folder `contracts` there is folder `dynamic-rate-staking-contract`. In the folder there is a file with the smart contract code and a folder `...-flattened`, where the flattened version of the code is located. Test for smart contract located in `test` folder
 
 ### Dynamic Rate Staking
 The dynamic rate staking mechanism in the `DynamicRateStaking` contract provides users with rewards based on the total amount of staked tokens across all users, the individual user's stake amount, and the duration of their stake. 
