@@ -1,6 +1,6 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT 
 
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.23;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
@@ -32,9 +32,25 @@ contract DynamicRateStaking is ReentrancyGuard {
     uint256 public stakingDurationWeight;
     uint256 public tokenSupplyWeight;
 
+    // Boolean to control staking
+    bool public stakingAllowed = true;
+
     // Events
     event TokensStaked(address indexed staker, uint256 amount);
     event TokensWithdrawn(address indexed staker, uint256 amount, uint256 reward);
+    event StakingStatusChanged(bool allowed);
+
+    // Modifier to restrict access to only the owner of the contract
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not authorized");
+        _;
+    }
+
+    // Modifier to check if staking is allowed
+    modifier stakingIsAllowed() {
+        require(stakingAllowed, "Staking is not allowed");
+        _;
+    }
 
     // Constructor to initialize the contract with staking and rewards tokens
     constructor(address _stakingToken, address _rewardToken, uint256 _interestRate, uint256 _stakedAmountWeight, uint256 _stakingDurationWeight, uint256 _tokenSupplyWeight) {
@@ -47,14 +63,8 @@ contract DynamicRateStaking is ReentrancyGuard {
         tokenSupplyWeight = _tokenSupplyWeight;
     }
 
-    // Modifier to restrict access to only the owner of the contract
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Not authorized");
-        _;
-    }
-
     // Function to stake tokens
-    function stake(uint256 _amount) external payable nonReentrant {
+    function stake(uint256 _amount) external payable nonReentrant stakingIsAllowed {
         require(_amount > 0, "Amount must be greater than 0");
         require(msg.value == 0, "Function is not payable");
         require(stakingToken.allowance(msg.sender, address(this)) > _amount, "Insufficient allowance");
@@ -111,5 +121,11 @@ contract DynamicRateStaking is ReentrancyGuard {
         stakedAmountWeight = _stakedAmountWeight;
         stakingDurationWeight = _stakingDurationWeight;
         tokenSupplyWeight = _tokenSupplyWeight;
+    }
+
+    // Function to toggle staking status (onlyOwner)
+    function toggleStaking(bool _allowed) external onlyOwner {
+        stakingAllowed = _allowed;
+        emit StakingStatusChanged(_allowed);
     }
 }
