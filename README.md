@@ -1,5 +1,8 @@
 # Forward-Web3-Hack
 
+## Figma
+https://www.figma.com/file/tBKlrdBMVJm8NsrkgipXEl/Staking?type=design&node-id=0%3A1&mode=design&t=Wx1hwEcOgnUgT5QQ-1
+
 ## Business Idea
 https://docs.google.com/document/d/1op5qrDxVVvUaUlHNGmWHjSJXIuA1kl7EZGyCGnTT7t0/edit?usp=sharing
 
